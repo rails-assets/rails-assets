@@ -65,7 +65,18 @@ module Build
         semVerReg = /#{Regexp.escape(specifier)}\s*(\d+\.)*[x\*]/
 
         version.gsub!(semVerReg) do |match|
-          match.strip[0..-3]
+          new = match.strip[0..-3]
+
+          case specifier
+          when '>'
+            new[-1] = (new[-1].to_i + 1).to_s
+            new.gsub specifier, '>='
+          when '<='
+            new[-1] = (new[-1].to_i + 1).to_s
+            new.gsub specifier, '<'
+          else
+            new
+          end
         end
       end
 

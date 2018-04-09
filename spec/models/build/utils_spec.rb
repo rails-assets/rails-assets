@@ -64,11 +64,19 @@ module Build
       end
 
       specify do
-        expect(Utils.fix_version_string('>=1.2.x <=1.4.x')).to eq(">= 1.2, <= 1.4")
+        expect(Utils.fix_version_string('>=1.2.x <=1.4.x')).to eq(">= 1.2, < 1.5")
       end
 
       specify do
-        expect(Utils.fix_version_string('>=1.2.X <=1.4.X')).to eq(">= 1.2, <= 1.4")
+        expect(Utils.fix_version_string('>=1.2.X <=1.4.X')).to eq(">= 1.2, < 1.5")
+      end
+
+      specify do
+        expect(Utils.fix_version_string('>=2.x <=4.x')).to eq(">= 2, < 5")
+      end
+
+      specify do
+        expect(Utils.fix_version_string('>=2.X <=4.X')).to eq(">= 2, < 5")
       end
 
       specify do
@@ -241,24 +249,37 @@ module Build
         # semver.satisfies('1.0.1', '>1.0.x') => false
         # semver.satisfies('1.1.0', '>1.0.x') => true
         expect(Utils.fix_version_string('>1.0.x')).
-          to eq("> 1.0")
+          to eq(">= 1.1")
       end
 
       specify do
         expect(Utils.fix_version_string('>1.0.X')).
-          to eq("> 1.0")
+          to eq(">= 1.1")
       end
 
       specify do
-        # semver.satisfies('1.0.1', '>1.0.x') => true
-        # semver.satisfies('1.1.0', '>1.0.x') => true
+        # semver.satisfies('1.0.0', '<=1.0.x') => true
+        # semver.satisfies('1.0.1', '<=1.0.x') => true
+        # semver.satisfies('1.1.0', '<=1.0.x') => false
         expect(Utils.fix_version_string('<=1.0.x')).
-          to eq("<= 1.0")
+          to eq("< 1.1")
       end
 
       specify do
         expect(Utils.fix_version_string('<=1.0.X')).
-          to eq("<= 1.0")
+          to eq("< 1.1")
+      end
+
+      specify do
+        # semver.satisfies('0.0.9', '<1.0.x') => true
+        # semver.satisfies('1.0.0', '<1.0.x') => false
+        expect(Utils.fix_version_string('<1.0.x')).
+          to eq("< 1.0")
+      end
+
+      specify do
+        expect(Utils.fix_version_string('<1.0.X')).
+          to eq("< 1.0")
       end
 
       specify do
