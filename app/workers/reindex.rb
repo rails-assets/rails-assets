@@ -105,8 +105,8 @@ class Reindex
   end
 
   def gemspec_rz(spec)
-    self.class.indexer.abbreviate spec
-    self.class.indexer.sanitize spec
+    spec.abbreviate
+    spec.sanitize
     Gem.deflate(Marshal.dump(spec))
   end
 

@@ -64,7 +64,7 @@ GEM
     diff-lcs (1.2.4)
     dotenv (0.9.0)
     erubis (2.7.0)
-    eventmachine (1.0.3)
+    eventmachine (1.0.4)
     execjs (2.0.1)
     faraday (0.8.8)
       multipart-post (~> 1.2.0)
@@ -239,6 +239,7 @@ DEPENDENCIES
   builder
   coffee-rails (~> 4.0.0)
   database_cleaner
+  eventmachine (= 1.0.4)
   figaro!
   foreman
   honey_badger
@@ -269,3 +270,9 @@ DEPENDENCIES
   thread
   uglifier (>= 1.3.0)
   whenever
+
+RUBY VERSION
+   ruby 2.2.3p173
+
+BUNDLED WITH
+   1.17.3

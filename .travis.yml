@@ -10,4 +10,4 @@ script: bundle exec rspec
 services:
   - redis-server
 rvm:
-  - 2.0.0
+  - 2.2.3
